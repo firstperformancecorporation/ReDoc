@@ -36,6 +36,8 @@ export function init(specUrlOrSpec:string|any, options:any = {}) {
     moduleRef = appRef;
     if (IS_PRODUCTION) disableDebugTools();
     console.log('ReDoc initialized!');
+    var w = DOM.getWindow();
+    if (w.redocHook != undefined) w.redocHook(appRef);
   }).catch(err => {
     throw err;
   });
