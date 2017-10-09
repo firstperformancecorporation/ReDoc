@@ -17,6 +17,8 @@ export interface OperationInfo {
   bodyParam: any;
   summary: string;
   anchor: string;
+  anchorPlayer?: string;
+  parentTagId?: string;
   externalDocs?: {
     url: string;
     description?: string;
@@ -61,6 +63,8 @@ export class Operation extends BaseComponent implements OnInit {
       bodyParam: this.findBodyParam(),
       summary: SchemaHelper.operationSummary(this.componentSchema),
       anchor: this.buildAnchor(),
+      anchorPlayer: this.buildAnchorPlayer(),
+      parentTagId: this.parentTagId,
       externalDocs: this.componentSchema.externalDocs
     };
   }
@@ -70,7 +74,20 @@ export class Operation extends BaseComponent implements OnInit {
       { type: 'operation', operationId: this.operationId, pointer: this.pointer },
       this.parentTagId );
   }
+  
+  buildAnchorPlayer():string {
+    var pointers = this.pointer.split("/");
+    //console.log(pointers, this.operationId, this.parentTagId);
+    var np = pointers[3] + pointers[2].split('~1').join('_');
+    
+    var ttag = this.parentTagId.split("tag/");
 
+    //@TODO set player URL here; if possible playerURL should be part of swagger-schema as 
+    var tag = '/api-player/#' + ttag[1];
+
+    return  tag + '/' + np;
+  }
+  
   filterMainTags(tags) {
     var tagsMap = this.specMgr.getTagsMap();
     if (!tags) return [];
@@ -84,6 +101,7 @@ export class Operation extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
+    //console.log('xx', this.parentTagId);
     this.preinit();
   }
 }

@@ -7,6 +7,6 @@
     </div>
     <operation *lazyFor="let operation of tag.items; let ready = ready;"
     [hidden]="!ready" [pointer]="operation.metadata.pointer"
-    [parentTagId]="tag.id" [attr.section]="operation.id"></operation>
+    [parentTagId]="tag.id" [attr.section]="operation.id" [attr.ptag]="tag.id"></operation>
   </div>
 </div>
