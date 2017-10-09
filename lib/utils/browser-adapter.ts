@@ -50,4 +50,6 @@ export class BrowserDomAdapter {
   }
 
   static defaultDoc(): HTMLDocument { return document; }
+  
+  static getWindow(): any { return window; }
 }
