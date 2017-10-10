@@ -1,10 +1,13 @@
 <div class="operation" *ngIf="operation">
   <div class="operation-content">
     <h2 class="operation-header sharable-header" [class.deprecated]="operation.deprecated">
-        <a class="share-link" href="#{{operation.anchor}}"></a>{{operation.summary}}
+        <a class="share-link" href="#{{operation.anchor}}"></a>
+        
+        {{operation.summary}}
     </h2>
+    <a class="player-link player-link-header" href="{{operation.anchorPlayer}}" target="_blank">Play API</a>
     <endpoint-link *ngIf="pathInMiddlePanel"
-      [verb]="operation.verb" [path]="operation.path"> </endpoint-link>
+      [verb]="operation.verb" [path]="operation.path" [parentTagId]="operation.parentTagId"> </endpoint-link>
     <div class="operation-tags" *ngIf="operation.info.tags.length">
         <a *ngFor="let tag of operation.info.tags" attr.href="#tag/{{tag}}"> {{tag}} </a>
     </div>
@@ -18,7 +21,7 @@
   <div class="operation-samples">
 
     <endpoint-link *ngIf="!pathInMiddlePanel"
-      [verb]="operation.verb" [path]="operation.path"> </endpoint-link>
+      [verb]="operation.verb" [path]="operation.path" [parentTagId]="operation.parentTagId" > </endpoint-link>
 
     <div>
         <request-samples [pointer]="pointer" [schemaPointer]="operation.bodyParam?._pointer">
